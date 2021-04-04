@@ -1,0 +1,32 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/DMux4Way.hdl
+
+/**
+ * 4-way demultiplexor:
+ * {a, b, c, d} = {in, 0, 0, 0} if sel == 00
+ *                {0, in, 0, 0} if sel == 01
+ *                {0, 0, in, 0} if sel == 10
+ *                {0, 0, 0, in} if sel == 11
+ */
+
+CHIP DMux4Way {
+    IN in, sel[2];
+    OUT a, b, c, d;
+
+    PARTS:
+    // Put your code here:
+    // sel = 01 has sel[0] as 1 and sel[1] as 0, odd way of indexing
+    
+    // it is set to either a1 or b1 based on sel[0]
+    // as long as sel[1] == 0 value is always set to a1
+    DMux(in=in, sel=sel[1], a=a1, b=b1);
+
+    // a1 will put the value in either a or b based on sel[0] 
+    DMux(in=a1, sel=sel[0], a=a,  b=b);
+    
+    // b1 will put the value in either c or d based on sel[0] 
+    DMux(in=b1, sel=sel[0], a=c,  b=d);
+
+}
